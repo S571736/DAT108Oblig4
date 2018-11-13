@@ -36,4 +36,38 @@ public class Graf {
         noder.remove(node);
         return node;
     }
+
+    public void slettKant(Kant sletteKant, Node sletteNode){
+        for(int i = 0; i < sletteNode.tilkobletKant.size(); i++){
+            if (sletteNode.tilkobletKant.get(i) == sletteKant){
+                sletteNode.tilkobletKant.remove(i);
+            }
+        }
+    }
+
+    public ArrayList<Node> breddeFørst(){
+        ArrayList<Node> kø = new ArrayList<>();
+        ArrayList<Node> bredde = new ArrayList<>();
+        Node ekstraNode;
+        kø.add(noder.get(0));
+
+        while(kø.size()!= 0){
+            node = kø.get(0);
+            System.out.println(node.toString());
+            for (int i = 0; i < node.tilkobletKant.size(); i++){
+                kant = node.tilkobletKant.get(i);
+                //sletter kanten fra tilkobla node
+                if (kant.tilkobletNode.get(0) != node){
+                    ekstraNode = kant.tilkobletNode.get(0);
+                    slettKant(kant, ekstraNode);
+                }else{
+                    ekstraNode = kant.tilkobletNode.get(1);
+                    slettKant(kant, ekstraNode);
+                }
+
+            }
+        }
+
+        return bredde;
+    }
 }
