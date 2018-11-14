@@ -54,6 +54,7 @@ public class Graf {
 
         while (ko.size() != 0) {
             node = ko.get(0);
+
             System.out.println(node.toString());
             for (int i = 0; i < node.tilkobletKant.size(); i++) {
                 kant = node.tilkobletKant.get(i);
@@ -65,11 +66,46 @@ public class Graf {
                     ekstraNode = kant.tilkobletNode.get(1);
                     ko.add(ekstraNode);
                 }
-
-
+                bredde.add(node);
+                ko.remove(node);
             }
         }
 
         return bredde;
+    }
+
+    public boolean finnesNode(ArrayList<Node> liste, Node node) {
+        Node N;
+        boolean funnet = false;
+        String Id = node.getId();
+
+        while (funnet == false) {
+            for (int i = 0; i < liste.size(); i++) {
+                N = liste.get(i);
+                if (Id.equals(N.getId())) {
+                    funnet = true;
+                    break;
+                }
+
+            }
+        }
+        return funnet;
+    }
+
+    public Node finnNode(ArrayList<Node> liste, Node node) {
+        Node N = null;
+        String Id = node.getId();
+        boolean funnet = false;
+
+        while (funnet == false) {
+            for (int i = 0; i < liste.size(); i++) {
+                N = liste.get(i);
+                if (Id.equals(N.getId())){
+                    funnet = true;
+                    break;
+                }
+            }
+        }
+        return N;
     }
 }
