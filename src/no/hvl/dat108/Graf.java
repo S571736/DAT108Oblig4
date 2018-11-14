@@ -10,6 +10,7 @@ public class Graf {
     Node node;
 
 
+    //Slett funker betre.
     public Kant fjernKant(int kantNr){
         kant = kanter.get(kantNr);
         //Sletter ein node som ender opp uten kanter
@@ -46,13 +47,13 @@ public class Graf {
     }
 
     public ArrayList<Node> breddeFørst(){
-        ArrayList<Node> kø = new ArrayList<>();
+        ArrayList<Node> ko = new ArrayList<>();
         ArrayList<Node> bredde = new ArrayList<>();
         Node ekstraNode;
-        kø.add(noder.get(0));
+        ko.add(noder.get(0));
 
-        while(kø.size()!= 0){
-            node = kø.get(0);
+        while(ko.size()!= 0){
+            node = ko.get(0);
             System.out.println(node.toString());
             for (int i = 0; i < node.tilkobletKant.size(); i++){
                 kant = node.tilkobletKant.get(i);
