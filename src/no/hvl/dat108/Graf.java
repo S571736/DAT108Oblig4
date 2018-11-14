@@ -3,6 +3,13 @@ package no.hvl.dat108;
 import java.util.ArrayList;
 
 
+/*
+NOTATER:
+slette noder etter eg har vert i de?
+
+
+ */
+
 public class Graf {
     ArrayList<Node> noder;
     ArrayList<Kant> kanter;
@@ -54,20 +61,19 @@ public class Graf {
 
         while (ko.size() != 0) {
             node = ko.get(0);
-
-            System.out.println(node.toString());
             for (int i = 0; i < node.tilkobletKant.size(); i++) {
                 kant = node.tilkobletKant.get(i);
 
-                if (kant.tilkobletNode.get(0) != node) {
-                    ekstraNode = kant.tilkobletNode.get(0);
-                    ko.add(ekstraNode);
-                } else {
+                if(kant.tilkobletNode.get(0).getId().compareTo(node.getId()) == 0){
                     ekstraNode = kant.tilkobletNode.get(1);
+                    ko.add(ekstraNode);
+                }else{
+                    ekstraNode = kant.tilkobletNode.get(0);
                     ko.add(ekstraNode);
                 }
                 bredde.add(node);
                 ko.remove(node);
+
             }
         }
 
@@ -78,7 +84,7 @@ public class Graf {
         Node N;
         boolean funnet = false;
         String Id = node.getId();
-
+//double my ass, i need two things from one thingy so stfu
         while (funnet == false) {
             for (int i = 0; i < liste.size(); i++) {
                 N = liste.get(i);
