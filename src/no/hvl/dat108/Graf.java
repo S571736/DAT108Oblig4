@@ -1,6 +1,8 @@
 package no.hvl.dat108;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 
 /*
@@ -95,7 +97,7 @@ public class Graf {
 
             }
         }
-        return funnet;
+                return funnet;
     }
 
     public Node finnNode(ArrayList<Node> liste, Node node) {
@@ -114,4 +116,29 @@ public class Graf {
         }
         return N;
     }
+
+    public ArrayList<Kant> prim(Node n) {
+        ArrayList<Node> brukt = new ArrayList<>();
+        ArrayList<Kant> MST = new ArrayList<>();
+        Node midlertidig = null;
+        PriorityQueue haug = new PriorityQueue();
+        for(int i = 0; i < kanter.size(); i++) {
+            haug.add(kanter.get(i));
+        }
+        while(!haug.isEmpty()) {
+            Kant k = (Kant) haug.poll();
+            for(int j = 0; j < k.tilkobletNode.size(); j++) {
+                midlertidig = k.tilkobletNode.get(j);
+                if(!brukt.contains(midlertidig)) {
+                    brukt.add(midlertidig);
+                    MST.add(k);
+                }
+            }
+        }
+
+        return MST;
+
+    }
+
+
 }

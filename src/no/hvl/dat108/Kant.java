@@ -1,6 +1,7 @@
 package no.hvl.dat108;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class Kant {
 
@@ -28,4 +29,5 @@ public class Kant {
     public void setTilkobletNode(ArrayList<Node> tilkobletNode) {
         this.tilkobletNode = tilkobletNode;
     }
+
 }
