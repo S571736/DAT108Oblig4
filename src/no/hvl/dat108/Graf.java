@@ -1,6 +1,5 @@
 package no.hvl.dat108;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
@@ -22,8 +21,6 @@ public class Graf {
     //Slett funker betre.
     public Kant fjernKant(int kantNr) {
         kant = kanter.get(kantNr);
-        //Sletter ein node som ender opp uten kanter
-        //Sette opp ja nei om å slette?
         if (kant.tilkobletNode.size() != 0) {
             for (int i = 0; i < kant.tilkobletNode.size(); i++) {
                 node = kant.tilkobletNode.get(i);
@@ -36,8 +33,17 @@ public class Graf {
         return kant;
     }
 
-    public Node fjernNode(int nodeNr) {
-        node = noder.get(nodeNr);
+    public void slettKant(Kant sletteKant, Node sletteNode) {
+        for (int i = 0; i < sletteNode.tilkobletKant.size(); i++) {
+            if (sletteNode.tilkobletKant.get(i) == sletteKant) {
+                sletteNode.tilkobletKant.remove(i);
+                kanter.remove(sletteKant);
+            }
+        }
+    }
+
+    public Node fjernNode(Node node) {
+
         if (node.tilkobletKant.size() != 0) {
             for (int i = 0; i < node.tilkobletKant.size(); i++) {
                 node.tilkobletKant.remove(i);
@@ -47,39 +53,30 @@ public class Graf {
         return node;
     }
 
-    public void slettKant(Kant sletteKant, Node sletteNode) {
-        for (int i = 0; i < sletteNode.tilkobletKant.size(); i++) {
-            if (sletteNode.tilkobletKant.get(i) == sletteKant) {
-                sletteNode.tilkobletKant.remove(i);
-            }
-        }
-    }
-
     public ArrayList<Node> breddeFørst(Node node) {
         ArrayList<Node> ko = new ArrayList<>();
         ArrayList<Node> bredde = new ArrayList<>();
-        Node ekstraNode;
-        ko.add(noder.get(0));
+        ko.add(node);
 
         while (ko.size() != 0) {
             node = ko.get(0);
             for (int i = 0; i < node.tilkobletKant.size(); i++) {
                 kant = node.tilkobletKant.get(i);
+                for (Node n : kant.tilkobletNode) {
+                    if (bredde.contains(n) || ko.contains(n)) {
+                        ko.add(n);
+                    }
 
-                if (kant.tilkobletNode.get(0).getId().compareTo(node.getId()) == 0) {
-                    ekstraNode = kant.tilkobletNode.get(1);
-                    ko.add(ekstraNode);
-                } else {
-                    ekstraNode = kant.tilkobletNode.get(0);
-                    ko.add(ekstraNode);
+                    /*
+                    her eller utafor for-løkka?
+                    bredde.add(node);
+                    ko.remove(node);
+                    */
                 }
                 bredde.add(node);
                 ko.remove(node);
-
-
             }
         }
-
         return bredde;
     }
 
@@ -98,7 +95,7 @@ public class Graf {
 
             }
         }
-                return funnet;
+        return funnet;
     }
 
     public Node finnNode(ArrayList<Node> liste, Node node) {
@@ -123,14 +120,14 @@ public class Graf {
         ArrayList<Kant> MST = new ArrayList<>();
         Node midlertidig = null;
         PriorityQueue haug = new PriorityQueue();
-        for(int i = 0; i < kanter.size(); i++) {
+        for (int i = 0; i < kanter.size(); i++) {
             haug.add(kanter.get(i));
         }
-        while(!haug.isEmpty()) {
+        while (!haug.isEmpty()) {
             Kant k = (Kant) haug.poll();
-            for(int j = 0; j < k.tilkobletNode.size(); j++) {
+            for (int j = 0; j < k.tilkobletNode.size(); j++) {
                 midlertidig = k.tilkobletNode.get(j);
-                if(!brukt.contains(midlertidig)) {
+                if (!brukt.contains(midlertidig)) {
                     brukt.add(midlertidig);
                     MST.add(k);
                 }
@@ -139,6 +136,12 @@ public class Graf {
 
         return MST;
 
+    }
+
+    public void kantTilkobling(Node n){
+        for (Kant k : n.tilkobletKant){
+            k.tilkobletNode.add(n);
+        }
     }
 
 

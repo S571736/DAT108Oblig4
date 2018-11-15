@@ -12,6 +12,10 @@ public class Node {
         this.tilkobletKant = tilkobletKant;
     }
 
+    public Node(String Id){
+        this.Id= Id;
+    }
+
     public String getId() {
         return Id;
     }
@@ -26,5 +30,9 @@ public class Node {
 
     public void setTilkoblet(ArrayList<Kant> tilkobletKant) {
         this.tilkobletKant = tilkobletKant;
+    }
+
+    public void lagKobling(Kant k){
+        tilkobletKant.add(k);
     }
 }

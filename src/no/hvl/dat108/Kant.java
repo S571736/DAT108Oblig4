@@ -14,6 +14,10 @@ public class Kant {
         this.tilkobletNode = tilkobletNode;
     }
 
+    public Kant(int vekt){
+        this.vekt = vekt;
+    }
+
     public int getVekt() {
         return vekt;
     }
@@ -28,5 +32,9 @@ public class Kant {
 
     public void setTilkobletNode(ArrayList<Node> tilkobletNode) {
         this.tilkobletNode = tilkobletNode;
+    }
+
+    public void lagKobling(Node n){
+        tilkobletNode.add(n);
     }
 }
