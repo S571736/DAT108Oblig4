@@ -28,4 +28,6 @@ public class Kant {
     public void setTilkobletNode(ArrayList<Node> tilkobletNode) {
         this.tilkobletNode = tilkobletNode;
     }
+
+
 }

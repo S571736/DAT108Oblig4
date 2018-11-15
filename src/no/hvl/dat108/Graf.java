@@ -53,7 +53,7 @@ public class Graf {
         }
     }
 
-    public ArrayList<Node> breddeFørst() {
+    public ArrayList<Node> breddeFørst(Node node) {
         ArrayList<Node> ko = new ArrayList<>();
         ArrayList<Node> bredde = new ArrayList<>();
         Node ekstraNode;
@@ -64,15 +64,16 @@ public class Graf {
             for (int i = 0; i < node.tilkobletKant.size(); i++) {
                 kant = node.tilkobletKant.get(i);
 
-                if(kant.tilkobletNode.get(0).getId().compareTo(node.getId()) == 0){
+                if (kant.tilkobletNode.get(0).getId().compareTo(node.getId()) == 0) {
                     ekstraNode = kant.tilkobletNode.get(1);
                     ko.add(ekstraNode);
-                }else{
+                } else {
                     ekstraNode = kant.tilkobletNode.get(0);
                     ko.add(ekstraNode);
                 }
                 bredde.add(node);
                 ko.remove(node);
+
 
             }
         }
@@ -106,7 +107,7 @@ public class Graf {
         while (funnet == false) {
             for (int i = 0; i < liste.size(); i++) {
                 N = liste.get(i);
-                if (Id.equals(N.getId())){
+                if (Id.equals(N.getId())) {
                     funnet = true;
                     break;
                 }
