@@ -36,6 +36,12 @@ public class Main {
         a.lagKobling(ab);
         a.lagKobling(ad);
         a.lagKobling(af);
+        b.lagKobling(cb);
+        b.lagKobling(be);
+        c.lagKobling(cd);
+        e.lagKobling(ef);
+        f.lagKobling(fd);
+
 
 
     }

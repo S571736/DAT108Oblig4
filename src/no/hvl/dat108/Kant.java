@@ -1,20 +1,19 @@
 package no.hvl.dat108;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 public class Kant {
 
     int vekt;
     ArrayList<Node> tilkobletNode;
 
-    public Kant(int vekt, ArrayList<Node> tilkobletNode){
+    public Kant(int vekt, ArrayList<Node> tilkobletNode) {
 
         this.vekt = vekt;
         this.tilkobletNode = tilkobletNode;
     }
 
-    public Kant(int vekt){
+    public Kant(int vekt) {
         this.vekt = vekt;
     }
 
@@ -34,7 +33,11 @@ public class Kant {
         this.tilkobletNode = tilkobletNode;
     }
 
-    public void lagKobling(Node n){
-        tilkobletNode.add(n);
+    public void lagKobling(Kant k) {
+        for (int i = 0; i < tilkobletNode.size(); i++) {
+            k.tilkobletNode.get(0).lagKobling(k);
+        }
     }
+
+
 }

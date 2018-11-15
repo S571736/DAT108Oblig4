@@ -138,11 +138,6 @@ public class Graf {
 
     }
 
-    public void kantTilkobling(Node n){
-        for (Kant k : n.tilkobletKant){
-            k.tilkobletNode.add(n);
-        }
-    }
 
 
 }
