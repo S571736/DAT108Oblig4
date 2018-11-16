@@ -50,6 +50,10 @@ public class Graf {
        kanter.get(2).kobleSammen(noder.get(0), noder.get(3));
        kanter.get(3).kobleSammen(noder.get(0), noder.get(5));
        kanter.get(4).kobleSammen(noder.get(1), noder.get(2));
+       kanter.get(5).kobleSammen(noder.get(1), noder.get(4));
+       kanter.get(6).kobleSammen(noder.get(2), noder.get(3));
+       kanter.get(7).kobleSammen(noder.get(3), noder.get(5));
+       kanter.get(8).kobleSammen(noder.get(4), noder.get(5));
 
     }
 

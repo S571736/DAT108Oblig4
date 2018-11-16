@@ -10,7 +10,7 @@ public class Main {
         ArrayList<Node> noder = g.lagNodene();
         ArrayList<Kant> kanter = g.lagKantene();
 
-
+        g.connect();
 
 
     }
