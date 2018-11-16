@@ -12,14 +12,17 @@ slette noder etter eg har vert i de?
  */
 
 public class Graf {
-    ArrayList<Node> noder;
-    ArrayList<Kant> kanter;
+    ArrayList<Node> noder = new ArrayList<>();
+    ArrayList<Kant> kanter = new ArrayList<>();
     Kant kant;
     Node node;
 
 
     public ArrayList<Node> lagNodene() {
-
+        /*
+        Node a1 = new Node("a1");
+        noder.add(a1);
+        */
         noder.add(new Node("a"));
         noder.add(new Node("b"));
         noder.add(new Node("c"));
@@ -44,16 +47,24 @@ public class Graf {
         return kanter;
     }
 
-    public void connect(){
-       kanter.get(0).kobleSammen(noder.get(0), noder.get(1));
-       kanter.get(1).kobleSammen(noder.get(0), noder.get(2));
-       kanter.get(2).kobleSammen(noder.get(0), noder.get(3));
-       kanter.get(3).kobleSammen(noder.get(0), noder.get(5));
-       kanter.get(4).kobleSammen(noder.get(1), noder.get(2));
-       kanter.get(5).kobleSammen(noder.get(1), noder.get(4));
-       kanter.get(6).kobleSammen(noder.get(2), noder.get(3));
-       kanter.get(7).kobleSammen(noder.get(3), noder.get(5));
-       kanter.get(8).kobleSammen(noder.get(4), noder.get(5));
+    public void connect() {
+        kanter.get(0).kobleSammen(noder.get(0), noder.get(1));
+        kanter.get(1).kobleSammen(noder.get(0), noder.get(2));
+        kanter.get(2).kobleSammen(noder.get(0), noder.get(3));
+        kanter.get(3).kobleSammen(noder.get(0), noder.get(5));
+        kanter.get(4).kobleSammen(noder.get(1), noder.get(2));
+        kanter.get(5).kobleSammen(noder.get(1), noder.get(4));
+        kanter.get(6).kobleSammen(noder.get(2), noder.get(3));
+        kanter.get(7).kobleSammen(noder.get(3), noder.get(5));
+        kanter.get(8).kobleSammen(noder.get(4), noder.get(5));
+
+        for (int i = 0; i < kanter.size(); i++) {
+            kant = kanter.get(i);
+            for (int j = 0; j < kant.tilkobletNode.size(); j++) {
+                node = kant.tilkobletNode.get(j);
+                node.lagKobling(kant);
+            }
+        }
 
     }
 
@@ -100,25 +111,33 @@ public class Graf {
         while (ko.size() != 0) {
             node = ko.get(0);
             for (int i = 0; i < node.tilkobletKant.size(); i++) {
+                //finner kant som er tilkoblet til node
                 kant = node.tilkobletKant.get(i);
+                //hvilken node som har er tilkoblet til kanten
                 for (Node n : kant.tilkobletNode) {
-                    if (bredde.contains(n) || ko.contains(n)) {
+                    //dersom man har vert innom n
+                    if (!bredde.contains(n) || !ko.contains(n)) {
                         ko.add(n);
                     }
 
                     /*
-                    her eller utafor for-løkka?
+                    //her eller utafor for-løkka?
                     bredde.add(node);
                     ko.remove(node);
                     */
                 }
+
                 bredde.add(node);
                 ko.remove(node);
+
             }
+            /*
+            bredde.add(node);
+            ko.remove(node);
+            */
         }
         return bredde;
     }
-
 
 
     public boolean finnesNode(ArrayList<Node> liste, Node node) {

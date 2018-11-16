@@ -7,18 +7,11 @@ public class Node {
     String Id;
     ArrayList<Kant> tilkobletKant;
 
-    public Node(String Id, ArrayList<Kant> tilkobletKant){
+    public Node(String Id) {
         this.Id = Id;
-        this.tilkobletKant = tilkobletKant;
+        this.tilkobletKant = new ArrayList<Kant>();
     }
 
-    public Node(String Id){
-        this.Id= Id;
-    }
-
-    public Node(){
-        this.Id = "";
-    }
 
     public String getId() {
         return Id;
@@ -36,7 +29,7 @@ public class Node {
         this.tilkobletKant = tilkobletKant;
     }
 
-    public void lagKobling(Kant k){
+    public void lagKobling(Kant k) {
         tilkobletKant.add(k);
     }
 }

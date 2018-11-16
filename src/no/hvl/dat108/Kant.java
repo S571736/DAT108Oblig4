@@ -7,14 +7,10 @@ public class Kant {
     int vekt;
     ArrayList<Node> tilkobletNode;
 
-    public Kant(int vekt, ArrayList<Node> tilkobletNode) {
-
-        this.vekt = vekt;
-        this.tilkobletNode = tilkobletNode;
-    }
 
     public Kant(int vekt) {
         this.vekt = vekt;
+        this.tilkobletNode = new ArrayList<Node>();
     }
 
     public int getVekt() {
