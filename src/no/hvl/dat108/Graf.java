@@ -109,32 +109,25 @@ public class Graf {
         ko.add(node);
 
         while (ko.size() != 0) {
-            node = ko.get(0);
             for (int i = 0; i < node.tilkobletKant.size(); i++) {
+                node = ko.get(0);
                 //finner kant som er tilkoblet til node
                 kant = node.tilkobletKant.get(i);
                 //hvilken node som har er tilkoblet til kanten
                 for (Node n : kant.tilkobletNode) {
-                    //dersom man har vert innom n
+                    /*
+                    dersom n ligger ikkje ligger i køen eller allerede vert innom bredde
+                    så blir den lagt til i køen
+                    */
                     if (!bredde.contains(n) || !ko.contains(n)) {
                         ko.add(n);
                     }
-
-                    /*
-                    //her eller utafor for-løkka?
+                    //legger til node i bredde, dermed fjernes fra ko så den ikkje kan velges igjen
                     bredde.add(node);
                     ko.remove(node);
-                    */
                 }
-
-                bredde.add(node);
-                ko.remove(node);
-
             }
-            /*
-            bredde.add(node);
-            ko.remove(node);
-            */
+
         }
         return bredde;
     }
