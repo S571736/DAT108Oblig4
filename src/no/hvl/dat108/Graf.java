@@ -25,12 +25,12 @@ public class Graf {
         Node d = new Node("d");
         Node e = new Node("e");
         Node f = new Node("f");
-        noder.add(a);
-        noder.add(b);
-        noder.add(c);
-        noder.add(d);
-        noder.add(e);
-        noder.add(f);
+        noder.add(a); //0
+        noder.add(b); //1
+        noder.add(c); //2
+        noder.add(d); //3
+        noder.add(e); //4
+        noder.add(f); //5
 
         return noder;
     }
@@ -45,15 +45,15 @@ public class Graf {
         Kant ef = new Kant(1);
         Kant df = new Kant(4);
         Kant cd = new Kant(8);
-        kanter.add(ab);
-        kanter.add(ac);
-        kanter.add(ad);
-        kanter.add(af);
-        kanter.add(bc);
-        kanter.add(be);
-        kanter.add(cd);
-        kanter.add(df);
-        kanter.add(ef);
+        kanter.add(ab); //0
+        kanter.add(ac); //1
+        kanter.add(ad); //2
+        kanter.add(af); //3
+        kanter.add(bc); //4
+        kanter.add(be); //5
+        kanter.add(cd); //6
+        kanter.add(df); //7
+        kanter.add(ef); //8
 
         return kanter;
     }
@@ -64,6 +64,10 @@ public class Graf {
        kanter.get(2).kobleSammen(noder.get(0), noder.get(3));
        kanter.get(3).kobleSammen(noder.get(0), noder.get(5));
        kanter.get(4).kobleSammen(noder.get(1), noder.get(2));
+       kanter.get(5).kobleSammen(noder.get(1), noder.get(4));
+       kanter.get(6).kobleSammen(noder.get(2), noder.get(3));
+       kanter.get(7).kobleSammen(noder.get(3), noder.get(5));
+       kanter.get(8).kobleSammen(noder.get(4), noder.get(5));
 
     }
 
