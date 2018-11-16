@@ -12,6 +12,8 @@ public class Main {
 
         g.connect();
 
+        g.breddeFørst(noder.get(0));
 
+        System.out.println(g.breddeFørst(noder.get(0)).toString());
     }
 }

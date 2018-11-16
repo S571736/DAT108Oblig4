@@ -119,6 +119,8 @@ public class Graf {
         return bredde;
     }
 
+
+
     public boolean finnesNode(ArrayList<Node> liste, Node node) {
         Node N;
         boolean funnet = false;
