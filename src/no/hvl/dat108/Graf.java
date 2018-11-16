@@ -19,41 +19,27 @@ public class Graf {
 
 
     public ArrayList<Node> lagNodene() {
-        Node a = new Node("a");
-        Node b = new Node("b");
-        Node c = new Node("c");
-        Node d = new Node("d");
-        Node e = new Node("e");
-        Node f = new Node("f");
-        noder.add(a);
-        noder.add(b);
-        noder.add(c);
-        noder.add(d);
-        noder.add(e);
-        noder.add(f);
+
+        noder.add(new Node("a"));
+        noder.add(new Node("b"));
+        noder.add(new Node("c"));
+        noder.add(new Node("d"));
+        noder.add(new Node("e"));
+        noder.add(new Node("f"));
 
         return noder;
     }
 
     public ArrayList<Kant> lagKantene() {
-        Kant ac = new Kant(1);
-        Kant ab = new Kant(1);
-        Kant ad = new Kant(3);
-        Kant af = new Kant(5);
-        Kant bc = new Kant(2);
-        Kant be = new Kant(2);
-        Kant ef = new Kant(1);
-        Kant df = new Kant(4);
-        Kant cd = new Kant(8);
-        kanter.add(ab);
-        kanter.add(ac);
-        kanter.add(ad);
-        kanter.add(af);
-        kanter.add(bc);
-        kanter.add(be);
-        kanter.add(cd);
-        kanter.add(df);
-        kanter.add(ef);
+        kanter.add(new Kant(1)); //ab
+        kanter.add(new Kant(1)); //ac
+        kanter.add(new Kant(3)); //ad
+        kanter.add(new Kant(5)); //af
+        kanter.add(new Kant(2)); //bc
+        kanter.add(new Kant(2)); //be
+        kanter.add(new Kant(8)); //cd
+        kanter.add(new Kant(4)); //df
+        kanter.add(new Kant(1)); //ef
 
         return kanter;
     }
