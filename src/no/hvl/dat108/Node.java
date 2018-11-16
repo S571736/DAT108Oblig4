@@ -16,6 +16,10 @@ public class Node {
         this.Id= Id;
     }
 
+    public Node(){
+        this.Id = "";
+    }
+
     public String getId() {
         return Id;
     }

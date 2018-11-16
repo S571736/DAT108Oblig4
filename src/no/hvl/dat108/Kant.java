@@ -33,10 +33,17 @@ public class Kant {
         this.tilkobletNode = tilkobletNode;
     }
 
+    /*
     public void lagKobling(Kant k) {
         for (int i = 0; i < tilkobletNode.size(); i++) {
             k.tilkobletNode.get(0).lagKobling(k);
         }
+    }
+    */
+
+    public void kobleSammen(Node n, Node n1){
+        this.tilkobletNode.add(n);
+        this.tilkobletNode.add(n1);
     }
 
 

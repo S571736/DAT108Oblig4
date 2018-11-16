@@ -18,6 +18,55 @@ public class Graf {
     Node node;
 
 
+    public ArrayList<Node> lagNodene() {
+        Node a = new Node("a");
+        Node b = new Node("b");
+        Node c = new Node("c");
+        Node d = new Node("d");
+        Node e = new Node("e");
+        Node f = new Node("f");
+        noder.add(a);
+        noder.add(b);
+        noder.add(c);
+        noder.add(d);
+        noder.add(e);
+        noder.add(f);
+
+        return noder;
+    }
+
+    public ArrayList<Kant> lagKantene() {
+        Kant ac = new Kant(1);
+        Kant ab = new Kant(1);
+        Kant ad = new Kant(3);
+        Kant af = new Kant(5);
+        Kant bc = new Kant(2);
+        Kant be = new Kant(2);
+        Kant ef = new Kant(1);
+        Kant df = new Kant(4);
+        Kant cd = new Kant(8);
+        kanter.add(ab);
+        kanter.add(ac);
+        kanter.add(ad);
+        kanter.add(af);
+        kanter.add(bc);
+        kanter.add(be);
+        kanter.add(cd);
+        kanter.add(df);
+        kanter.add(ef);
+
+        return kanter;
+    }
+
+    public void connect(){
+       kanter.get(0).kobleSammen(noder.get(0), noder.get(1));
+       kanter.get(1).kobleSammen(noder.get(0), noder.get(2));
+       kanter.get(2).kobleSammen(noder.get(0), noder.get(3));
+       kanter.get(3).kobleSammen(noder.get(0), noder.get(5));
+       kanter.get(4).kobleSammen(noder.get(1), noder.get(2));
+
+    }
+
     //Slett funker betre.
     public Kant fjernKant(int kantNr) {
         kant = kanter.get(kantNr);
@@ -137,7 +186,6 @@ public class Graf {
         return MST;
 
     }
-
 
 
 }
