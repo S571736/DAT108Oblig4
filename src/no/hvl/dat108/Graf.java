@@ -103,6 +103,7 @@ public class Graf {
         return node;
     }
 
+    //a blir lagt inn igjen i ko av ein grunn eg ikkje forstår... how?
     public ArrayList<Node> breddeFørst(Node node) {
         ArrayList<Node> ko = new ArrayList<>();
         ArrayList<Node> bredde = new ArrayList<>();
