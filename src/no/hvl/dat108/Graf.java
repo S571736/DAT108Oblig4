@@ -63,8 +63,11 @@ public class Graf {
             for (int j = 0; j < kant.tilkobletNode.size(); j++) {
                 node = kant.tilkobletNode.get(j);
                 node.lagKobling(kant);
+
             }
         }
+
+
 
     }
 
@@ -108,29 +111,42 @@ public class Graf {
         ArrayList<Node> ko = new ArrayList<>();
         ArrayList<Node> bredde = new ArrayList<>();
         ko.add(node);
+        bredde.add(node);
 
         while (ko.size() != 0) {
-            for (int i = 0; i < node.tilkobletKant.size(); i++) {
-                node = ko.get(0);
-                //finner kant som er tilkoblet til node
-                kant = node.tilkobletKant.get(i);
-                //hvilken node som har er tilkoblet til kanten
-                for (Node n : kant.tilkobletNode) {
-                    /*
-                    dersom n ligger ikkje ligger i køen eller allerede vert innom bredde
-                    så blir den lagt til i køen
-                    */
-                    if (!bredde.contains(n) || !ko.contains(n)) {
-                        ko.add(n);
+            Node besokt = ko.get(0);
+            for(Kant k : besokt.getTilkobletKant()){
+                for(Node n : k.getTilkobletNode()) {
+                    if(!n.equals(besokt)){
+                        if(!bredde.contains(n)){
+                            ko.add(n);
+                            bredde.add(n);
+                        }
                     }
-                    //legger til node i bredde, dermed fjernes fra ko så den ikkje kan velges igjen
-                    bredde.add(node);
-                    ko.remove(node);
                 }
-            }
+
+//            for (int i = 0; i < node.tilkobletKant.size(); i++) {
+//                node = ko.get(0);
+//                //finner kant som er tilkoblet til node
+//                kant = node.tilkobletKant.get(i);
+//                //hvilken node som har er tilkoblet til kanten
+//                for (Node n : kant.tilkobletNode) {
+//                    /*
+//                    dersom n ligger ikkje ligger i køen eller allerede vert innom bredde
+//                    så blir den lagt til i køen
+//                    */
+//                    if (!bredde.contains(n) || !ko.contains(n)) {
+//                        ko.add(n);
+//                    }
+//                    //legger til node i bredde, dermed fjernes fra ko så den ikkje kan velges igjen
+//                    bredde.add(node);
+//                    ko.remove(node);
+//                }
+//            }
 
         }
         return bredde;
+            System.out.println("fullfører breddeførst-metoden");
     }
 
 

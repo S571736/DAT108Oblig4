@@ -32,4 +32,8 @@ public class Node {
     public void lagKobling(Kant k) {
         tilkobletKant.add(k);
     }
+
+    public boolean equals(Node n){
+        return Id.equals(n.getId());
+    }
 }
