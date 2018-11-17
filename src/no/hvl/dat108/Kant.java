@@ -1,8 +1,8 @@
 package no.hvl.dat108;
 
 import java.util.ArrayList;
-
-public class Kant {
+//må implemente comparable?
+public class Kant implements Comparable {
 
     int vekt;
     ArrayList<Node> tilkobletNode;

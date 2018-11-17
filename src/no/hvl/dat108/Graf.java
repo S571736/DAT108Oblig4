@@ -112,14 +112,24 @@ public class Graf {
         ko.add(node);
         bredde.add(node);
 
-        while (ko.size() != 0) {
+        //mens køen ikkje er tom og breddegjennomgangen ikkje har vert innom alle noder
+        while (ko.size() != 0 && !(bredde.size() == noder.size())) {
+            //finner første node i køen
             Node besokt = ko.get(0);
+            //finner kantene som er tilkoblet første i køen
             for (Kant k : besokt.getTilkobletKant()) {
+                //finner nodene som første node er tilkoblet
                 for (Node n : k.getTilkobletNode()) {
+
                     if (!n.equals(besokt)) {
+                        //sjekker at noden ikkje har er behandlet
+                        ko.remove(besokt);
                         if (!bredde.contains(n)) {
+                            //legger noden til i koen og behandler
                             ko.add(n);
+                            ko.remove(besokt);
                             bredde.add(n);
+                            System.out.println("Innerste løkke, n = " + n.getId());
                         }
                     }
                 }
@@ -192,6 +202,7 @@ public class Graf {
         PriorityQueue haug = new PriorityQueue();
         for (int i = 0; i < kanter.size(); i++) {
             haug.add(kanter.get(i));
+            
         }
         while (!haug.isEmpty()) {
             Kant k = (Kant) haug.poll();
