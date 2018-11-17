@@ -68,7 +68,6 @@ public class Graf {
         }
 
 
-
     }
 
     //Slett funker betre.
@@ -115,10 +114,10 @@ public class Graf {
 
         while (ko.size() != 0) {
             Node besokt = ko.get(0);
-            for(Kant k : besokt.getTilkobletKant()){
-                for(Node n : k.getTilkobletNode()) {
-                    if(!n.equals(besokt)){
-                        if(!bredde.contains(n)){
+            for (Kant k : besokt.getTilkobletKant()) {
+                for (Node n : k.getTilkobletNode()) {
+                    if (!n.equals(besokt)) {
+                        if (!bredde.contains(n)) {
                             ko.add(n);
                             bredde.add(n);
                         }
@@ -144,13 +143,14 @@ public class Graf {
 //                }
 //            }
 
+            }
         }
+        System.out.println("fullfører breddeførst-metoden");
         return bredde;
-            System.out.println("fullfører breddeførst-metoden");
     }
 
 
-    public boolean finnesNode(ArrayList<Node> liste, Node node) {
+    public boolean finnesNode(ArrayList<Node> liste, Node n) {
         Node N;
         boolean funnet = false;
         String Id = node.getId();
