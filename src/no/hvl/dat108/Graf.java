@@ -4,13 +4,6 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 
-/*
-NOTATER:
-slette noder etter eg har vert i de?
-
-
- */
-
 public class Graf {
     ArrayList<Node> noder = new ArrayList<>();
     ArrayList<Kant> kanter = new ArrayList<>();
@@ -19,16 +12,13 @@ public class Graf {
 
 
     public ArrayList<Node> lagNodene() {
-        /*
-        Node a1 = new Node("a1");
-        noder.add(a1);
-        */
-        noder.add(new Node("a"));
-        noder.add(new Node("b"));
-        noder.add(new Node("c"));
-        noder.add(new Node("d"));
-        noder.add(new Node("e"));
-        noder.add(new Node("f"));
+
+        noder.add(new Node("a")); //0
+        noder.add(new Node("b")); //1
+        noder.add(new Node("c")); //2
+        noder.add(new Node("d")); //3
+        noder.add(new Node("e")); //4
+        noder.add(new Node("f")); //5
 
         return noder;
     }
@@ -48,15 +38,15 @@ public class Graf {
     }
 
     public void connect() {
-        kanter.get(0).kobleSammen(noder.get(0), noder.get(1));
-        kanter.get(1).kobleSammen(noder.get(0), noder.get(2));
-        kanter.get(2).kobleSammen(noder.get(0), noder.get(3));
-        kanter.get(3).kobleSammen(noder.get(0), noder.get(5));
-        kanter.get(4).kobleSammen(noder.get(1), noder.get(2));
-        kanter.get(5).kobleSammen(noder.get(1), noder.get(4));
-        kanter.get(6).kobleSammen(noder.get(2), noder.get(3));
-        kanter.get(7).kobleSammen(noder.get(3), noder.get(5));
-        kanter.get(8).kobleSammen(noder.get(4), noder.get(5));
+        kanter.get(0).kobleSammen(noder.get(0), noder.get(1)); //ab
+        kanter.get(1).kobleSammen(noder.get(0), noder.get(2)); //ac
+        kanter.get(2).kobleSammen(noder.get(0), noder.get(3)); //ad
+        kanter.get(3).kobleSammen(noder.get(0), noder.get(5)); //af
+        kanter.get(4).kobleSammen(noder.get(1), noder.get(2)); //bc
+        kanter.get(5).kobleSammen(noder.get(1), noder.get(4)); //be
+        kanter.get(6).kobleSammen(noder.get(2), noder.get(3)); //cd
+        kanter.get(7).kobleSammen(noder.get(3), noder.get(5)); //df
+        kanter.get(8).kobleSammen(noder.get(4), noder.get(5)); //ef
 
         for (int i = 0; i < kanter.size(); i++) {
             kant = kanter.get(i);
@@ -105,7 +95,7 @@ public class Graf {
         return node;
     }
 
-    //a blir lagt inn igjen i ko av ein grunn eg ikkje forstår... how?
+
     public ArrayList<Node> breddeFørst(Node node) {
         ArrayList<Node> ko = new ArrayList<>();
         ArrayList<Node> bredde = new ArrayList<>();
@@ -129,10 +119,14 @@ public class Graf {
                             ko.add(n);
                             ko.remove(besokt);
                             bredde.add(n);
-                            System.out.println("Innerste løkke, n = " + n.getId());
                         }
                     }
                 }
+                /*
+                TODO
+                til den som evaluerer:
+                bare slette alt dette ettersom det skal bli brukt til å forklare medlem av gruppen hva som var feilen
+                */
 
 //            for (int i = 0; i < node.tilkobletKant.size(); i++) {
 //                node = ko.get(0);
@@ -155,69 +149,35 @@ public class Graf {
 
             }
         }
-        System.out.println("fullfører breddeførst-metoden");
+        //System.out.println("fullfører breddeførst-metoden");
         return bredde;
     }
 
-
-    public boolean finnesNode(ArrayList<Node> liste, Node n) {
-        Node N;
-        boolean funnet = false;
-        String Id = node.getId();
-//double my ass, i need two things from one thingy so stfu
-        while (funnet == false) {
-            for (int i = 0; i < liste.size(); i++) {
-                N = liste.get(i);
-                if (Id.equals(N.getId())) {
-                    funnet = true;
-                    break;
-                }
-
-            }
-        }
-        return funnet;
-    }
-
-    public Node finnNode(ArrayList<Node> liste, Node node) {
-        Node N = null;
-        String Id = node.getId();
-        boolean funnet = false;
-
-        while (funnet == false) {
-            for (int i = 0; i < liste.size(); i++) {
-                N = liste.get(i);
-                if (Id.equals(N.getId())) {
-                    funnet = true;
-                    break;
-                }
-            }
-        }
-        return N;
-    }
-
-    public ArrayList<Kant> prim(Node n) {
+    public ArrayList<Kant> prim(Node node) {
         ArrayList<Node> brukt = new ArrayList<>();
         ArrayList<Kant> MST = new ArrayList<>();
-        Node midlertidig = null;
-        PriorityQueue haug = new PriorityQueue();
-        for (int i = 0; i < kanter.size(); i++) {
-            haug.add(kanter.get(i));
-            
+        Node n = null;
+        PriorityQueue<Kant> haug = new PriorityQueue<Kant>();
+
+
+        for (int i = 0; i < node.tilkobletKant.size(); i++) {
+            haug.add(node.tilkobletKant.get(i));
         }
+        brukt.add(node);
         while (!haug.isEmpty()) {
-            Kant k = (Kant) haug.poll();
+            Kant k = haug.poll();
             for (int j = 0; j < k.tilkobletNode.size(); j++) {
-                midlertidig = k.tilkobletNode.get(j);
-                if (!brukt.contains(midlertidig)) {
-                    brukt.add(midlertidig);
+                n = k.tilkobletNode.get(j);
+                if (!brukt.contains(n)) {
+                    brukt.add(n);
                     MST.add(k);
+                    for (int i = 0; i < n.tilkobletKant.size(); i++) {
+                        haug.add(n.tilkobletKant.get(i));
+                    }
                 }
             }
         }
-
         return MST;
-
     }
-
 
 }
