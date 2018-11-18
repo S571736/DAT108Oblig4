@@ -1,23 +1,82 @@
 package no.hvl.dat108;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
+
+/*
+NOTATER:
+slette noder etter eg har vert i de?
+
+
+ */
 
 public class Graf {
-    ArrayList<Node> noder;
-    ArrayList<Kant> kanter;
+    ArrayList<Node> noder = new ArrayList<>();
+    ArrayList<Kant> kanter = new ArrayList<>();
     Kant kant;
     Node node;
 
 
-    public Kant fjernKant(int kantNr){
+    public ArrayList<Node> lagNodene() {
+        /*
+        Node a1 = new Node("a1");
+        noder.add(a1);
+        */
+        noder.add(new Node("a"));
+        noder.add(new Node("b"));
+        noder.add(new Node("c"));
+        noder.add(new Node("d"));
+        noder.add(new Node("e"));
+        noder.add(new Node("f"));
+
+        return noder;
+    }
+
+    public ArrayList<Kant> lagKantene() {
+        kanter.add(new Kant(1)); //ab
+        kanter.add(new Kant(1)); //ac
+        kanter.add(new Kant(3)); //ad
+        kanter.add(new Kant(5)); //af
+        kanter.add(new Kant(2)); //bc
+        kanter.add(new Kant(2)); //be
+        kanter.add(new Kant(8)); //cd
+        kanter.add(new Kant(4)); //df
+        kanter.add(new Kant(1)); //ef
+
+        return kanter;
+    }
+
+    public void connect() {
+        kanter.get(0).kobleSammen(noder.get(0), noder.get(1));
+        kanter.get(1).kobleSammen(noder.get(0), noder.get(2));
+        kanter.get(2).kobleSammen(noder.get(0), noder.get(3));
+        kanter.get(3).kobleSammen(noder.get(0), noder.get(5));
+        kanter.get(4).kobleSammen(noder.get(1), noder.get(2));
+        kanter.get(5).kobleSammen(noder.get(1), noder.get(4));
+        kanter.get(6).kobleSammen(noder.get(2), noder.get(3));
+        kanter.get(7).kobleSammen(noder.get(3), noder.get(5));
+        kanter.get(8).kobleSammen(noder.get(4), noder.get(5));
+
+        for (int i = 0; i < kanter.size(); i++) {
+            kant = kanter.get(i);
+            for (int j = 0; j < kant.tilkobletNode.size(); j++) {
+                node = kant.tilkobletNode.get(j);
+                node.lagKobling(kant);
+
+            }
+        }
+
+
+    }
+
+    //Slett funker betre.
+    public Kant fjernKant(int kantNr) {
         kant = kanter.get(kantNr);
-        //Sletter ein node som ender opp uten kanter
-        //Sette opp ja nei om å slette?
-        if(kant.tilkobletNode.size() != 0){
-            for (int i = 0; i < kant.tilkobletNode.size(); i++){
+        if (kant.tilkobletNode.size() != 0) {
+            for (int i = 0; i < kant.tilkobletNode.size(); i++) {
                 node = kant.tilkobletNode.get(i);
-                if (node.tilkobletKant.size() == 0){
+                if (node.tilkobletKant.size() == 0) {
                     kant.tilkobletNode.remove(i);
                 }
             }
@@ -26,9 +85,18 @@ public class Graf {
         return kant;
     }
 
-    public Node fjernNode(int nodeNr){
-        node = noder.get(nodeNr);
-        if (node.tilkobletKant.size() != 0){
+    public void slettKant(Kant sletteKant, Node sletteNode) {
+        for (int i = 0; i < sletteNode.tilkobletKant.size(); i++) {
+            if (sletteNode.tilkobletKant.get(i) == sletteKant) {
+                sletteNode.tilkobletKant.remove(i);
+                kanter.remove(sletteKant);
+            }
+        }
+    }
+
+    public Node fjernNode(Node node) {
+
+        if (node.tilkobletKant.size() != 0) {
             for (int i = 0; i < node.tilkobletKant.size(); i++) {
                 node.tilkobletKant.remove(i);
             }
@@ -37,37 +105,119 @@ public class Graf {
         return node;
     }
 
-    public void slettKant(Kant sletteKant, Node sletteNode){
-        for(int i = 0; i < sletteNode.tilkobletKant.size(); i++){
-            if (sletteNode.tilkobletKant.get(i) == sletteKant){
-                sletteNode.tilkobletKant.remove(i);
+    //a blir lagt inn igjen i ko av ein grunn eg ikkje forstår... how?
+    public ArrayList<Node> breddeFørst(Node node) {
+        ArrayList<Node> ko = new ArrayList<>();
+        ArrayList<Node> bredde = new ArrayList<>();
+        ko.add(node);
+        bredde.add(node);
+
+        //mens køen ikkje er tom og breddegjennomgangen ikkje har vert innom alle noder
+        while (ko.size() != 0 && !(bredde.size() == noder.size())) {
+            //finner første node i køen
+            Node besokt = ko.get(0);
+            //finner kantene som er tilkoblet første i køen
+            for (Kant k : besokt.getTilkobletKant()) {
+                //finner nodene som første node er tilkoblet
+                for (Node n : k.getTilkobletNode()) {
+
+                    if (!n.equals(besokt)) {
+                        //sjekker at noden ikkje har er behandlet
+                        ko.remove(besokt);
+                        if (!bredde.contains(n)) {
+                            //legger noden til i koen og behandler
+                            ko.add(n);
+                            ko.remove(besokt);
+                            bredde.add(n);
+                            System.out.println("Innerste løkke, n = " + n.getId());
+                        }
+                    }
+                }
+
+//            for (int i = 0; i < node.tilkobletKant.size(); i++) {
+//                node = ko.get(0);
+//                //finner kant som er tilkoblet til node
+//                kant = node.tilkobletKant.get(i);
+//                //hvilken node som har er tilkoblet til kanten
+//                for (Node n : kant.tilkobletNode) {
+//                    /*
+//                    dersom n ligger ikkje ligger i køen eller allerede vert innom bredde
+//                    så blir den lagt til i køen
+//                    */
+//                    if (!bredde.contains(n) || !ko.contains(n)) {
+//                        ko.add(n);
+//                    }
+//                    //legger til node i bredde, dermed fjernes fra ko så den ikkje kan velges igjen
+//                    bredde.add(node);
+//                    ko.remove(node);
+//                }
+//            }
+
             }
         }
+        System.out.println("fullfører breddeførst-metoden");
+        return bredde;
     }
 
-    public ArrayList<Node> breddeFørst(){
-        ArrayList<Node> kø = new ArrayList<>();
-        ArrayList<Node> bredde = new ArrayList<>();
-        Node ekstraNode;
-        kø.add(noder.get(0));
 
-        while(kø.size()!= 0){
-            node = kø.get(0);
-            System.out.println(node.toString());
-            for (int i = 0; i < node.tilkobletKant.size(); i++){
-                kant = node.tilkobletKant.get(i);
-                //sletter kanten fra tilkobla node
-                if (kant.tilkobletNode.get(0) != node){
-                    ekstraNode = kant.tilkobletNode.get(0);
-                    slettKant(kant, ekstraNode);
-                }else{
-                    ekstraNode = kant.tilkobletNode.get(1);
-                    slettKant(kant, ekstraNode);
+    public boolean finnesNode(ArrayList<Node> liste, Node n) {
+        Node N;
+        boolean funnet = false;
+        String Id = node.getId();
+//double my ass, i need two things from one thingy so stfu
+        while (funnet == false) {
+            for (int i = 0; i < liste.size(); i++) {
+                N = liste.get(i);
+                if (Id.equals(N.getId())) {
+                    funnet = true;
+                    break;
                 }
 
             }
         }
-
-        return bredde;
+        return funnet;
     }
+
+    public Node finnNode(ArrayList<Node> liste, Node node) {
+        Node N = null;
+        String Id = node.getId();
+        boolean funnet = false;
+
+        while (funnet == false) {
+            for (int i = 0; i < liste.size(); i++) {
+                N = liste.get(i);
+                if (Id.equals(N.getId())) {
+                    funnet = true;
+                    break;
+                }
+            }
+        }
+        return N;
+    }
+
+    public ArrayList<Kant> prim(Node n) {
+        ArrayList<Node> brukt = new ArrayList<>();
+        ArrayList<Kant> MST = new ArrayList<>();
+        Node midlertidig = null;
+        PriorityQueue haug = new PriorityQueue();
+        for (int i = 0; i < kanter.size(); i++) {
+            haug.add(kanter.get(i));
+            
+        }
+        while (!haug.isEmpty()) {
+            Kant k = (Kant) haug.poll();
+            for (int j = 0; j < k.tilkobletNode.size(); j++) {
+                midlertidig = k.tilkobletNode.get(j);
+                if (!brukt.contains(midlertidig)) {
+                    brukt.add(midlertidig);
+                    MST.add(k);
+                }
+            }
+        }
+
+        return MST;
+
+    }
+
+
 }

@@ -1,16 +1,16 @@
 package no.hvl.dat108;
 
 import java.util.ArrayList;
-
-public class Kant {
+//må implemente comparable?
+public class Kant implements Comparable {
 
     int vekt;
     ArrayList<Node> tilkobletNode;
 
-    public Kant(int vekt, ArrayList<Node> tilkobletNode){
 
+    public Kant(int vekt) {
         this.vekt = vekt;
-        this.tilkobletNode = tilkobletNode;
+        this.tilkobletNode = new ArrayList<Node>();
     }
 
     public int getVekt() {
@@ -28,4 +28,19 @@ public class Kant {
     public void setTilkobletNode(ArrayList<Node> tilkobletNode) {
         this.tilkobletNode = tilkobletNode;
     }
+
+    /*
+    public void lagKobling(Kant k) {
+        for (int i = 0; i < tilkobletNode.size(); i++) {
+            k.tilkobletNode.get(0).lagKobling(k);
+        }
+    }
+    */
+
+    public void kobleSammen(Node n, Node n1){
+        this.tilkobletNode.add(n);
+        this.tilkobletNode.add(n1);
+    }
+
+
 }
